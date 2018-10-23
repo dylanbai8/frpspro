@@ -75,7 +75,7 @@ run_frps(){
 
 
 # 卸载frps
-uninstall_frps(){
+set_uninstall(){
 	systemctl stop frps
 	systemctl disable frps
 	rm -rf /usr/local/frps
@@ -293,7 +293,7 @@ set_subdomain_host(){
 
 
 # 安装流程
-install(){
+set_install(){
 	get_version
 	install_frps
 	add_auto_run
