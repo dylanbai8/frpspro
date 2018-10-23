@@ -10,11 +10,13 @@ wget -N --no-check-certificate git.io/f.sh && chmod +x f.sh && bash f.sh install
 bash f.sh token
 ```
 
+---
+
 
 ---
 
 
-# 常用命令
+# 【常用命令】
 
 ## 一键卸载 frps
 ```
@@ -42,8 +44,10 @@ bash f.sh vhost_https_port
 
 ---
 
+---
 
-# 备用命令
+
+# 【备用命令】
 
 ## 一键修改 dashboard_port
 ```
@@ -83,8 +87,10 @@ bash f.sh kcp_bind_port
 
 ---
 
+---
 
-# 注意事项
+
+# 【注意事项】
 
 ## 一键关闭 apache2、防火墙 释放 80 端口
 ```
