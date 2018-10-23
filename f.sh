@@ -71,6 +71,7 @@ run_frps(){
 	systemctl daemon-reload
 	systemctl enable frps >/dev/null 2>&1
 	systemctl start frps
+	systemctl restart frps
 }
 
 
@@ -293,6 +294,29 @@ set_subdomain_host(){
 # ====================================
 
 
+# 关闭apache2 释放80端口
+set_unapache2(){
+	systemctl disable httpd >/dev/null 2>&1
+	systemctl stop httpd >/dev/null 2>&1
+	killall -9 httpd >/dev/null 2>&1
+
+	systemctl disable apache2 >/dev/null 2>&1
+	systemctl stop apache2 >/dev/null 2>&1
+	killall -9 apache2 >/dev/null 2>&1
+
+	systemctl disable firewalld >/dev/null 2>&1
+	systemctl stop firewalld >/dev/null 2>&1
+	killall -9 firewalld >/dev/null 2>&1
+
+	systemctl disable iptables >/dev/null 2>&1
+	systemctl stop iptables >/dev/null 2>&1
+	killall -9 iptables >/dev/null 2>&1
+
+	echo -e "关闭 apache2 成功！"
+	echo -e "关闭 防火墙 成功！"
+}
+
+
 # 安装流程
 set_install(){
 	get_version
@@ -305,7 +329,7 @@ set_install(){
 
 # 脚本菜单
 case "$1" in
-	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall)
+	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall|unapache2)
 	set_$1
 	;;
 	*)

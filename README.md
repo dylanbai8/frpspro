@@ -11,6 +11,11 @@ bash f.sh token
 ```
 
 
+---
+
+
+# 常用命令
+
 ## 一键卸载 frps
 ```
 bash f.sh uninstall
@@ -34,6 +39,11 @@ bash f.sh vhost_http_port
 bash f.sh vhost_https_port
 ```
 
+
+---
+
+
+# 备用命令
 
 ## 一键修改 dashboard_port
 ```
@@ -70,3 +80,18 @@ bash f.sh bind_udp_port
 bash f.sh kcp_bind_port
 ```
 
+
+---
+
+
+# 注意事项
+
+## 一键关闭 apache2、防火墙 释放 80 端口
+```
+bash f.sh unapache2
+```
+
+## 注意，bind_port 端口修改时须在以下范围内：
+```
+2000-3000,3001,3003,4000-50000
+```
