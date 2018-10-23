@@ -5,6 +5,12 @@ wget -N --no-check-certificate git.io/f.sh && chmod +x f.sh && bash f.sh install
 ```
 
 
+## 一键修改 token
+```
+bash f.sh token
+```
+
+
 ## 一键卸载 frps
 ```
 bash f.sh uninstall
@@ -44,12 +50,6 @@ bash f.sh dashboard_user
 ## 一键修改 dashboard_pwd
 ```
 bash f.sh dashboard_pwd
-```
-
-
-## 一键修改 token
-```
-bash f.sh token
 ```
 
 

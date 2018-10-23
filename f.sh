@@ -79,7 +79,8 @@ set_uninstall(){
 	systemctl stop frps
 	systemctl disable frps
 	rm -rf /usr/local/frps
-	rm -rf /etc/systemd/system/frps.service
+	rm -rf /etc/systemd/system/frps.service >/dev/null 2>&1
+	echo -e "卸载成功！"
 }
 
 
@@ -121,7 +122,7 @@ set_bind_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^bind_port/c\bind_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^bind_port/c\bind_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -139,7 +140,7 @@ set_bind_udp_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^bind_udp_port/c\bind_udp_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^bind_udp_port/c\bind_udp_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -157,7 +158,7 @@ set_kcp_bind_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^kcp_bind_port/c\kcp_bind_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^kcp_bind_port/c\kcp_bind_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -175,7 +176,7 @@ set_vhost_http_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^vhost_http_port/c\vhost_http_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^vhost_http_port/c\vhost_http_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -193,7 +194,7 @@ set_vhost_https_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^vhost_https_port/c\vhost_https_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^vhost_https_port/c\vhost_https_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -211,7 +212,7 @@ set_dashboard_port(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^dashboard_port/c\dashboard_port = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^dashboard_port/c\dashboard_port = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -229,7 +230,7 @@ set_dashboard_user(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^dashboard_user/c\dashboard_user = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^dashboard_user/c\dashboard_user = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -248,7 +249,7 @@ set_dashboard_pwd(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^dashboard_pwd/c\dashboard_pwd = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^dashboard_pwd/c\dashboard_pwd = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -266,7 +267,7 @@ set_token(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^token/c\token = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^token/c\token = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -284,7 +285,7 @@ set_subdomain_host(){
 	echo -e "你设置的值为：${get_value}"
 	fi
 
-	sed -i '/^subdomain_host/c\subdomain_host = ${get_value}' /usr/local/frps/frps.ini
+	sed -i '/^subdomain_host/c\subdomain_host = '"${get_value}"'' /usr/local/frps/frps.ini
 	systemctl restart frps
 	echo -e "设置成功！"
 }
@@ -308,7 +309,7 @@ case "$1" in
 	set_$1
 	;;
 	*)
-	echo "缺少参数,更多教程请访问：https://github.com/dylanbai8/kmspro"
+	echo -e "缺少参数,更多教程请访问：https://github.com/dylanbai8/kmspro"
 	;;
 esac
 
