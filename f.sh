@@ -110,7 +110,7 @@ echo -e "--------------------------------------------------"
 # ====================================
 
 set_bind_port(){
-
+	get_value=""
 	echo -e "你正在设置 bind_port "
 
 	read -e -p "请输入：" get_value
@@ -119,6 +119,7 @@ set_bind_port(){
 	set_bind_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^bind_port/c\bind_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -136,6 +137,7 @@ set_bind_udp_port(){
 	set_bind_udp_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^bind_udp_port/c\bind_udp_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -153,6 +155,7 @@ set_kcp_bind_port(){
 	set_kcp_bind_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^kcp_bind_port/c\kcp_bind_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -170,6 +173,7 @@ set_vhost_http_port(){
 	set_vhost_http_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^vhost_http_port/c\vhost_http_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -187,6 +191,7 @@ set_vhost_https_port(){
 	set_vhost_https_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^vhost_https_port/c\vhost_https_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -204,6 +209,7 @@ set_dashboard_port(){
 	set_dashboard_port
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^dashboard_port/c\dashboard_port = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -221,6 +227,7 @@ set_dashboard_user(){
 	set_dashboard_user
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^dashboard_user/c\dashboard_user = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -239,6 +246,7 @@ set_dashboard_pwd(){
 	set_dashboard_pwd
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^dashboard_pwd/c\dashboard_pwd = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -256,6 +264,7 @@ set_token(){
 	set_token
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^token/c\token = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
@@ -273,6 +282,7 @@ set_subdomain_host(){
 	set_subdomain_host
 	else
 	echo -e "你设置的值为：${get_value}"
+	fi
 
 	sed -i '/^subdomain_host/c\subdomain_host = ${get_value}' /usr/local/frps/frps.ini
 	systemctl restart frps
