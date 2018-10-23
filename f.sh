@@ -9,7 +9,7 @@
 #====================================================
 
 
-# 获取最新版本号
+# 获取frps最新版本号
 get_version(){
 	api_url="https://api.github.com/repos/fatedier/frp/releases/latest"
 
