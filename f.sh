@@ -3,8 +3,8 @@
 #====================================================
 #	System Request: Centos 7+ Debian 8+
 #	Author: dylanbai8
-#	* 小内存VPS 一键安装 Caddy+PHP7+Sqlite3 环境 （支持VPS最小内存64M）
-#	* 开源地址：https://github.com/dylanbai8/Onekey_Caddy_PHP7_Sqlite3
+#	* 一键安装 Frps
+#	* 开源地址：https://github.com/dylanbai8/frpspro
 #	Blog: https://oo0.bid
 #====================================================
 
@@ -302,4 +302,5 @@ case "$1" in
 	;;
 esac
 
-# 转载请保留版权：https://v0v.bid
+
+# 转载请保留版权：https://github.com/dylanbai8/frpspro
