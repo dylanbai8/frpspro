@@ -16,14 +16,7 @@ bash f.sh token
 
 ---
 
-
 ---
-
-
-## 一键卸载 frps
-```
-bash f.sh uninstall
-```
 
 
 ## 一键修改 bind_port
@@ -70,12 +63,6 @@ bash f.sh dashboard_pwd
 ```
 
 
-## 一键修改 subdomain_host
-```
-bash f.sh subdomain_host
-```
-
-
 ## 一键修改 bind_udp_port
 ```
 bash f.sh bind_udp_port
@@ -88,6 +75,18 @@ bash f.sh kcp_bind_port
 ```
 
 
+## 一键修改 subdomain_host （用于子域名泛解析）
+```
+bash f.sh subdomain_host
+```
+
+
+## 一键卸载 frps
+```
+bash f.sh uninstall
+```
+
+
 # 【注意事项】
 
 
@@ -96,12 +95,14 @@ bash f.sh kcp_bind_port
 ---
 
 
-## 一键关闭 apache2、防火墙 释放 80 端口
+## 一键关闭 apache2、防火墙，释放 80 端口
 ```
 bash f.sh unapache2
 ```
 
-## 注意，bind_port 端口修改时须在以下范围内：
+## 注意，除http(s)以外，客户端 frpc.ini 内任何端口修改时须在以下范围内：
 ```
 2000-3000,3001,3003,4000-50000
 ```
+
+## 需要注意 frpc 所在机器和 frps 所在机器的时间相差不能超过 15 分钟
