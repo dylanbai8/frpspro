@@ -63,7 +63,7 @@ bash f.sh bind_udp_port
 bash f.sh kcp_bind_port
 ```
 
-## 一键修改 subdomain_host （用于子域名泛解析）
+## 一键修改 subdomain_host （用于泛解析子域名）
 ```
 bash f.sh subdomain_host
 ```

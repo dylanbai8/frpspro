@@ -3,7 +3,7 @@
 #====================================================
 #	System Request: Centos 7+ Debian 8+
 #	Author: dylanbai8
-#	* 一键安装 Frps
+#	* Frps 一键安装脚本，Frpc Windows 便捷脚本！Frp 远程桌面！
 #	* 开源地址：https://github.com/dylanbai8/frpspro
 #	Blog: https://oo0.bid
 #====================================================
