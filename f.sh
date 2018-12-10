@@ -24,7 +24,6 @@ EOF
 	get_releases=$(cat ./version.txt)
 
 	releases_url=https://github.com/fatedier/frp/releases/download/${new_ver}/frp_${get_releases}_linux_amd64.tar.gz
-	windows_url=https://github.com/fatedier/frp/releases/download/${new_ver}/frp_${get_releases}_windows_amd64.zip
 	rm -rf ./version.txt
 }
 
@@ -101,10 +100,7 @@ echo -e "默认 vhost_https_port：443"
 echo ""
 echo -e "默认 bind_udp_port：7001"
 echo -e "默认 kcp_bind_port：7000"
-echo -e "默认 allow_ports：2000-3000,3001,3003,4000-50000"
 echo ""
-echo -e "Windows 便捷脚本：https://github.com/dylanbai8/frpspro/raw/master/FrpsPro.zip"
-echo -e "Windows 最新内核：${windows_url}"
 echo -e "--------------------------------------------------"
 }
 
