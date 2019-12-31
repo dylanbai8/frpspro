@@ -79,7 +79,8 @@ EOF
 }
 
 # 更新frps
-update_frps(){
+set_update(){
+	get_version
 	wget -N --no-check-certificate ${releases_url}
 
 	tar -zxvf frp*.tar.gz
@@ -356,7 +357,7 @@ set_install(){
 
 # 脚本菜单
 case "$1" in
-	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall|unapache2)
+	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall|unapache2|update)
 	set_$1
 	;;
 	*)
