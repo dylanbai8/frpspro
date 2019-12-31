@@ -13,7 +13,7 @@
 get_version(){
 	api_url="https://api.github.com/repos/fatedier/frp/releases/latest"
 
-	new_ver=`curl ${PROXY} -s ${api_url} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
+	new_ver=`curl -s ${api_url} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
 
 	touch ./version.txt
 	cat <<EOF > ./version.txt
@@ -41,12 +41,21 @@ install_frps(){
 	mv ./frp*/frps /usr/local/frps/frps
 	mv ./frp*/frps_full.ini /usr/local/frps/frps.ini
 
+	ln -s /usr/local/frps/frps /usr/bin/frps
+	ln -s /usr/local/frps/frps.ini /etc/frp/frps.ini
+
+	if [ -d "./frp*/systemd" ]; then
+  		mv ./frp*/systemd/frps* /usr/local/frps/systemd/ 
+	fi	
+
 	rm -rf ./frp*
 }
 
-
 # 添加开机自启动
 add_auto_run(){
+	if [ -d "/usr/local/frps/systemd" ]; then
+  		ln -s /usr/local/frps/systemd/frps* /etc/systemd/system/
+	else 
 	touch /etc/systemd/system/frps.service
 	cat <<EOF > /etc/systemd/system/frps.service
 [Unit]
@@ -55,16 +64,28 @@ After=network.target
 Wants=network.target
 [Service]
 Type=simple
-PIDFile=/var/run/frps.pid
-ExecStart=/usr/local/frps/frps -c /usr/local/frps/frps.ini
+PIDFile=/var/run/frps.pid 
+ExecStart=/usr/bin/frps -c /etc/frp/frps.ini
 RestartPreventExitStatus=23
 Restart=always
 User=root
 [Install]
 WantedBy=multi-user.target
 EOF
+	fi	
 }
 
+# 更新frps
+update_frps(){
+	wget -N --no-check-certificate ${releases_url}
+
+	tar -zxvf frp*.tar.gz
+
+	mv ./frp*/frps /usr/local/frps/frps
+	mv ./frp*/systemd/frps* /usr/local/frps/systemd/
+
+	rm -rf ./frp*
+}
 
 # 启动frps
 run_frps(){
@@ -80,7 +101,7 @@ set_uninstall(){
 	systemctl stop frps
 	systemctl disable frps
 	rm -rf /usr/local/frps
-	rm -rf /etc/systemd/system/frps.service >/dev/null 2>&1
+	rm -rf /etc/systemd/system/frps* >/dev/null 2>&1
 	echo -e "卸载成功！"
 }
 
