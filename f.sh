@@ -37,16 +37,28 @@ install_frps(){
 
 	rm -rf /usr/local/frps
 	mkdir /usr/local/frps
+	mkdir /etc/frp
 
 	mv ./frp*/frps /usr/local/frps/frps
 	mv ./frp*/frps_full.ini /usr/local/frps/frps.ini
 
+	cd ./frp*
+	if [ -d "systemd" ]; then
+  		mv systemd /usr/local/frps/
+		sed -i '/^User/c\User = root' /usr/local/frps/systemd/frps.service
+	fi	
+
+	ln -s /usr/local/frps/frps /usr/bin/frps
+	ln -s /usr/local/frps/frps.ini /etc/frp/frps.ini
+
 	rm -rf ./frp*
 }
 
-
 # 添加开机自启动
 add_auto_run(){
+	if [ -d "/usr/local/frps/systemd" ]; then
+  		ln -s /usr/local/frps/systemd/frps* /etc/systemd/system/
+	else 
 	touch /etc/systemd/system/frps.service
 	cat <<EOF > /etc/systemd/system/frps.service
 [Unit]
@@ -55,16 +67,29 @@ After=network.target
 Wants=network.target
 [Service]
 Type=simple
-PIDFile=/var/run/frps.pid
-ExecStart=/usr/local/frps/frps -c /usr/local/frps/frps.ini
+PIDFile=/var/run/frps.pid 
+ExecStart=/usr/bin/frps -c /etc/frp/frps.ini
 RestartPreventExitStatus=23
 Restart=always
 User=root
 [Install]
 WantedBy=multi-user.target
 EOF
+	fi	
 }
 
+# 更新frps
+set_update(){
+	get_version
+	wget -N --no-check-certificate ${releases_url}
+
+	tar -zxvf frp*.tar.gz
+
+	mv ./frp*/frps /usr/local/frps/frps
+	mv ./frp*/systemd/frps* /usr/local/frps/systemd/
+
+	rm -rf ./frp*
+}
 
 # 启动frps
 run_frps(){
@@ -80,7 +105,9 @@ set_uninstall(){
 	systemctl stop frps
 	systemctl disable frps
 	rm -rf /usr/local/frps
-	rm -rf /etc/systemd/system/frps.service >/dev/null 2>&1
+	rm -rf /usr/bin/frps
+	rm -rf /etc/frp
+	rm -rf /etc/systemd/system/frps* >/dev/null 2>&1
 	echo -e "卸载成功！"
 }
 
@@ -330,7 +357,7 @@ set_install(){
 
 # 脚本菜单
 case "$1" in
-	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall|unapache2)
+	bind_port|bind_udp_port|kcp_bind_port|vhost_http_port|vhost_https_port|dashboard_port|dashboard_user|dashboard_pwd|token|subdomain_host|install|uninstall|unapache2|update)
 	set_$1
 	;;
 	*)
