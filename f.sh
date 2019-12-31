@@ -13,7 +13,7 @@
 get_version(){
 	api_url="https://api.github.com/repos/fatedier/frp/releases/latest"
 
-	new_ver=`curl -s ${api_url} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
+	new_ver=`curl ${PROXY} -s ${api_url} --connect-timeout 10| grep 'tag_name' | cut -d\" -f4`
 
 	touch ./version.txt
 	cat <<EOF > ./version.txt
@@ -37,16 +37,18 @@ install_frps(){
 
 	rm -rf /usr/local/frps
 	mkdir /usr/local/frps
+	mkdir /etc/frp
 
 	mv ./frp*/frps /usr/local/frps/frps
 	mv ./frp*/frps_full.ini /usr/local/frps/frps.ini
 
+	cd ./frp*
+	if [ -d "systemd" ]; then
+  		mv systemd /usr/local/frps/
+	fi	
+
 	ln -s /usr/local/frps/frps /usr/bin/frps
 	ln -s /usr/local/frps/frps.ini /etc/frp/frps.ini
-
-	if [ -d "./frp*/systemd" ]; then
-  		mv ./frp*/systemd/frps* /usr/local/frps/systemd/ 
-	fi	
 
 	rm -rf ./frp*
 }
@@ -101,6 +103,8 @@ set_uninstall(){
 	systemctl stop frps
 	systemctl disable frps
 	rm -rf /usr/local/frps
+	rm -rf /usr/bin/frps
+	rm -rf /etc/frp
 	rm -rf /etc/systemd/system/frps* >/dev/null 2>&1
 	echo -e "卸载成功！"
 }
