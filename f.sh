@@ -45,6 +45,7 @@ install_frps(){
 	cd ./frp*
 	if [ -d "systemd" ]; then
   		mv systemd /usr/local/frps/
+		sed -i '/^User/c\User = root' /usr/local/frps/systemd/frps.service
 	fi	
 
 	ln -s /usr/local/frps/frps /usr/bin/frps
