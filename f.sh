@@ -24,7 +24,6 @@ EOF
 	get_releases=$(cat ./version.txt)
 
 	releases_url=https://github.com/fatedier/frp/releases/download/${new_ver}/frp_${get_releases}_linux_amd64.tar.gz
-	windows_url=https://github.com/fatedier/frp/releases/download/${new_ver}/frp_${get_releases}_windows_amd64.zip
 	rm -rf ./version.txt
 }
 
@@ -91,20 +90,16 @@ local_ip=`curl -4 ip.sb`
 clear
 echo ""
 echo -e "--------------------安装完成----------------------"
-echo -e "管理面板：http://${local_ip}:7500"
+echo -e "管理面板：http://${local_ip}:6443"
 echo -e "用户名：admin  密码：admin"
-echo -e "默认 bind_port：7000"
+echo -e "默认 bind_port：5443"
 echo -e "默认 token：12345678"
 echo ""
 echo -e "默认 vhost_http_port：80"
 echo -e "默认 vhost_https_port：443"
 echo ""
-echo -e "默认 bind_udp_port：7001"
-echo -e "默认 kcp_bind_port：7000"
-echo -e "默认 allow_ports：2000-3000,3001,3003,4000-50000"
+echo -e "默认 kcp_bind_port：5443"
 echo ""
-echo -e "Windows 便捷脚本：https://github.com/dylanbai8/frpspro/raw/master/FrpsPro.zip"
-echo -e "Windows 最新内核：${windows_url}"
 echo -e "--------------------------------------------------"
 }
 
@@ -129,23 +124,6 @@ set_bind_port(){
 	echo -e "设置成功！"
 }
 
-
-set_bind_udp_port(){
-	get_value=""
-	echo -e "你正在设置 bind_udp_port "
-
-	read -e -p "请输入：" get_value
-	[[ -z ${get_value} ]] && get_value="none"
-	if [ "${get_value}" = "none" ];then
-	set_bind_udp_port
-	else
-	echo -e "你设置的值为：${get_value}"
-	fi
-
-	sed -i '/^bind_udp_port/c\bind_udp_port = '"${get_value}"'' /usr/local/frps/frps.ini
-	systemctl restart frps
-	echo -e "设置成功！"
-}
 
 
 set_kcp_bind_port(){
